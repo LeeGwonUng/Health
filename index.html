@@ -16,90 +16,68 @@
 
         .user-card { border: 1px solid #e0e0e0; border-radius: 10px; margin-bottom: 18px; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.03); overflow: hidden; }
         
-        /* 1층: 번호 칸 및 이름 */
-        .header-row { display: flex; align-items: center; background: #eeeeee; border-bottom: 1px solid #e0e0e0; height: 45px; }
-        .num-area { width: 50px; text-align: center; font-weight: 800; font-size: 1.1rem; border-right: 1px solid #dcdcdc; color: #555; height: 100%; display: flex; align-items: center; justify-content: center; background: #e5e5e5; flex-shrink: 0; }
-        .name-area { flex: 1; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; font-weight: 800; overflow: hidden; }
-        .name-box { font-size: 1.1rem; color: #1a1a1a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .btn-del { font-size: 0.7rem; color: #999; border: none; background: none; cursor: pointer; text-decoration: underline; white-space: nowrap; }
+        /* ✅ 1층: 번호와 이름 높이 정렬 수정 */
+        .header-row { display: flex; align-items: stretch; background: #eeeeee; border-bottom: 1px solid #e0e0e0; height: 45px; }
+        .num-area { width: 50px; text-align: center; font-weight: 800; font-size: 1.1rem; border-right: 1px solid #dcdcdc; color: #555; display: flex; align-items: center; justify-content: center; background: #e5e5e5; flex-shrink: 0; line-height: 1; }
+        .name-area { flex: 1; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; font-weight: 800; line-height: 1; }
+        .name-box { font-size: 1.1rem; color: #1a1a1a; white-space: nowrap; }
 
-        /* ✅ 2층: 버튼 너비 고정 후 나머지 자동 배분 */
-        .mid-row { display: flex; gap: 0; padding: 0; align-items: stretch; border-bottom: 1px solid #e0e0e0; }
-        
-        /* 횟수 영역 (남은 공간의 약 45%) */
-        .count-box { flex: 4.5; display: flex; flex-direction: column; border-right: 1px solid #e0e0e0; background: #fff; min-width: 0; }
-        .count-title { font-size: 0.75rem; color: #555; text-align: center; padding: 5px 0; font-weight: bold; background: #fcfcfc; border-bottom: 1px solid #f2f2f2; white-space: nowrap; }
-        .count-value { flex: 1; display: flex; justify-content: center; align-items: center; gap: 2px; font-weight: 800; padding: 10px 0; white-space: nowrap; }
+        /* ✅ 2층: 우측 버튼 라인 정렬 (수업완료/저장 너비 75px 고정) */
+        .mid-row { display: flex; align-items: stretch; border-bottom: 1px solid #e0e0e0; }
+        .count-box { flex: 3.5; display: flex; flex-direction: column; border-right: 1px solid #e0e0e0; background: #fff; }
+        .count-title { font-size: 0.75rem; color: #555; text-align: center; padding: 5px 0; font-weight: bold; background: #fcfcfc; border-bottom: 1px solid #f2f2f2; }
+        .count-value { flex: 1; display: flex; justify-content: center; align-items: center; font-weight: 800; padding: 10px 0; }
         .rem-count { font-size: 1.3rem; }
-        .divider { color: #ccc; font-weight: normal; }
+        .divider { color: #ccc; margin: 0 2px; }
         .total-count { color: #333; font-size: 1.05rem; }
-        .blue { color: #3498db; } .red { color: #e74c3c; }
         
-        /* 기록 영역 (남은 공간의 약 55%) */
-        .log-box { flex: 5.5; font-size: 0.75rem; color: #555; height: 81px; overflow-y: scroll; background: #fff; box-sizing: border-box; display: flex; flex-direction: column; border-right: 1px solid #e0e0e0; min-width: 0; }
-        .log-item { display: flex; justify-content: space-between; align-items: center; height: 27px; padding: 0 6px; border-bottom: 1px solid #f2f2f2; box-sizing: border-box; white-space: nowrap; }
-        .log-item:last-child { border-bottom: none; }
-        .log-date { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
-        .btn-undo { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border: 1px solid #eee; color: #ccc; background: white; cursor: pointer; font-size: 0.6rem; font-weight: bold; border-radius: 3px; flex-shrink: 0; -webkit-appearance: none; }
+        .log-box { flex: 4.5; font-size: 0.7rem; color: #555; height: 81px; overflow-y: scroll; background: #fff; display: flex; flex-direction: column; border-right: 1px solid #e0e0e0; }
+        .log-item { display: flex; justify-content: space-between; align-items: center; height: 27px; padding: 0 5px; border-bottom: 1px solid #f2f2f2; white-space: nowrap; box-sizing: border-box; }
+        .btn-undo { width: 15px; height: 15px; border: 1px solid #eee; color: #ccc; background: white; font-size: 0.6rem; border-radius: 3px; -webkit-appearance: none; }
 
-        /* ✅ 수업완료 버튼 (저장 버튼과 너비 고정 통일) */
-        .check-box { width: 75px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; background: #f9f9f9; padding: 4px; box-sizing: border-box; }
-        .btn-check { background: #555; color: white; border: none; width: 100%; height: 100%; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 0.85rem; line-height: 1.2; display: flex; flex-direction: column; justify-content: center; align-items: center; -webkit-appearance: none; }
+        /* 우측 버튼 공통 너비 */
+        .side-btn-width { width: 75px; flex-shrink: 0; }
+        .check-box { display: flex; justify-content: center; align-items: center; background: #f9f9f9; padding: 4px; box-sizing: border-box; }
+        .btn-check { background: #555; color: white; border: none; width: 100%; height: 100%; border-radius: 5px; font-weight: bold; font-size: 0.85rem; display: flex; flex-direction: column; justify-content: center; align-items: center; -webkit-appearance: none; }
 
-        /* 3층: 메모행 */
+        /* ✅ 3층: 메모 및 저장 버튼 우측 정렬 */
         .memo-row { display: flex; align-items: center; padding: 8px 10px; background: #fff; gap: 5px; }
-        .memo-input { flex: 1; border: 1px solid #eee; border-radius: 5px; padding: 10px; font-size: 0.85rem; outline: none; height: 20px; -webkit-appearance: none; }
-        /* ✅ 저장 버튼 너비 고정 (수업완료와 통일) */
-        .btn-save { width: 75px; flex-shrink: 0; background: #555; color: white; border: none; border-radius: 5px; font-size: 0.85rem; cursor: pointer; font-weight: bold; height: 42px; -webkit-appearance: none; white-space: nowrap; }
+        .memo-input { flex: 1; border: 1px solid #eee; border-radius: 5px; padding: 10px; font-size: 0.85rem; height: 20px; -webkit-appearance: none; }
+        .btn-save { background: #555; color: white; border: none; border-radius: 5px; font-size: 0.85rem; font-weight: bold; height: 42px; -webkit-appearance: none; }
 
-        .no-log { height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .no-log-empty { height: 27px; width: 100%; border-bottom: 1px solid #f2f2f2; }
         .no-log-text { height: 27px; width: 100%; display: flex; align-items: center; justify-content: center; color: #ccc; border-bottom: 1px solid #f2f2f2; font-size: 0.7rem; }
-        .log-box::-webkit-scrollbar { width: 5px !important; }
-        .log-box::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+        .blue { color: #3498db; } .red { color: #e74c3c; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <h2>🧘‍♂️ 서울클럽 발란스 류센세</h2>
-
     <div class="input-group">
         <input type="text" id="userName" placeholder="이름" inputmode="text">
         <input type="number" id="totalSessions" placeholder="횟수" inputmode="numeric" step="10">
         <button class="btn-add" onclick="addUser()">등록</button>
     </div>
     <div class="guide-text">※ 수업완료: 수업후 클릭시 1회 차감</div>
-
     <div id="userContainer"></div>
 </div>
 
 <script>
-    let users = JSON.parse(localStorage.getItem('ryu_pt_v11')) || [];
+    let users = JSON.parse(localStorage.getItem('ryu_pt_v12')) || [];
 
     function render() {
         const container = document.getElementById('userContainer');
         container.innerHTML = '';
-
         users.forEach((user, idx) => {
             const remainClass = user.remain <= 3 ? 'red' : 'blue';
-            
             let logHtml = '';
             if (user.logs.length === 0) {
-                logHtml = `
-                    <div class="no-log">
-                        <div class="no-log-empty"></div>
-                        <div class="no-log-text">기록 없음</div>
-                        <div class="no-log-empty" style="border-bottom:none;"></div>
-                    </div>`;
+                logHtml = `<div class="no-log-text" style="height:27px; border-bottom:1px solid #f2f2f2;"></div><div class="no-log-text">기록 없음</div><div class="no-log-text" style="border-bottom:none;"></div>`;
             } else {
                 const displayLogs = [...user.logs].reverse();
                 for(let i=0; i<Math.max(3, displayLogs.length); i++) {
                     const log = displayLogs[i];
-                    logHtml += `
-                        <div class="log-item">
-                            ${log ? `<span class="log-date">${log}</span><button class="btn-undo" onclick="undoSession(${idx}, ${user.logs.length - 1 - i})">X</button>` : ''}
-                        </div>`;
+                    logHtml += `<div class="log-item">${log ? `<span>${log}</span><button class="btn-undo" onclick="undoSession(${idx}, ${user.logs.length - 1 - i})">X</button>` : ''}</div>`;
                 }
             }
 
@@ -107,35 +85,23 @@
                 <div class="user-card">
                     <div class="header-row">
                         <div class="num-area">${(idx + 1).toString().padStart(2, '0')}</div>
-                        <div class="name-area">
-                            <span class="name-box">${user.name}</span>
-                            <button class="btn-del" onclick="deleteUser(${idx})">[삭제]</button>
-                        </div>
+                        <div class="name-area"><span class="name-box">${user.name}</span><button style="font-size:0.7rem; color:#999; border:none; background:none; text-decoration:underline;" onclick="deleteUser(${idx})">[삭제]</button></div>
                     </div>
                     <div class="mid-row">
                         <div class="count-box">
                             <div class="count-title">[ 잔여 / 총 ]</div>
-                            <div class="count-value">
-                                <span class="rem-count ${remainClass}">${user.remain}</span>
-                                <span class="divider">/</span>
-                                <span class="total-count">${user.total}</span>
-                            </div>
+                            <div class="count-value"><span class="rem-count ${remainClass}">${user.remain}</span><span class="divider">/</span><span class="total-count">${user.total}</span></div>
                         </div>
                         <div class="log-box">${logHtml}</div>
-                        <div class="check-box">
-                            <button class="btn-check" onclick="checkSession(${idx})">
-                                <span>수업</span><span>완료</span>
-                            </button>
-                        </div>
+                        <div class="check-box side-btn-width"><button class="btn-check" onclick="checkSession(${idx})"><span>수업</span><span>완료</span></button></div>
                     </div>
                     <div class="memo-row">
                         <input type="text" class="memo-input" id="memo-${idx}" value="${user.memo || ''}" placeholder="메모 입력...">
-                        <button class="btn-save" onclick="saveMemo(${idx})">저장</button>
+                        <button class="btn-save side-btn-width" onclick="saveMemo(${idx})">저장</button>
                     </div>
-                </div>
-            `;
+                </div>`;
         });
-        localStorage.setItem('ryu_pt_v11', JSON.stringify(users));
+        localStorage.setItem('ryu_pt_v12', JSON.stringify(users));
     }
 
     function addUser() {
@@ -153,7 +119,8 @@
         if(users[idx].remain <= 0) return alert("남은 횟수가 없습니다.");
         const now = new Date();
         const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
-        const timeStr = `${now.getMonth()+1}-${now.getDate()}(${weekDays[now.getDay()]})`;
+        // ✅ 요청하신 "3-24(화) 18시" 형식으로 복구
+        const timeStr = `${now.getMonth()+1}-${now.getDate()}(${weekDays[now.getDay()]}) ${now.getHours()}시`;
         users[idx].remain--;
         users[idx].logs.push(timeStr);
         render();
@@ -173,12 +140,7 @@
         alert("저장되었습니다.");
     }
 
-    function deleteUser(idx) {
-        if(confirm("해당 회원을 삭제하시겠습니까?")) {
-            users.splice(idx, 1);
-            render();
-        }
-    }
+    function deleteUser(idx) { if(confirm("삭제하시겠습니까?")) { users.splice(idx, 1); render(); } }
     render();
 </script>
 </body>
