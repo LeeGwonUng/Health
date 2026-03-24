@@ -6,43 +6,47 @@
     <title>서울클럽 발란스 류센세</title>
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f0f2f5; padding: 10px; display: flex; flex-direction: column; align-items: center; margin: 0; }
-        .container { width: 100%; max-width: 450px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        .container { width: 100%; max-width: 480px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
         h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px; font-size: 1.3rem; margin-top: 5px; }
-        h2 img { vertical-align: middle; height: 1.5rem; margin-right: 5px; }
         
-        /* 입력 영역 */
         .input-group { display: flex; gap: 5px; margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
         input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; width: 30%; }
-        .btn-add { background: #27ae60; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; }
+        .btn-add { background: #27ae60; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-        /* 회원 카드 스타일 */
         .user-card { border: 1px solid #eee; border-radius: 8px; margin-bottom: 15px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
         
-        /* 1층: 이름과 수업완료 버튼 */
+        /* 1층: 이름(옆에 삭제버튼) + 수업완료 버튼 */
         .header-row { display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fafafa; border-bottom: 1px solid #f0f0f0; }
-        .name-box { font-weight: bold; font-size: 0.95rem; text-align: left; }
-        .btn-check { background: #555; color: white; border: none; padding: 8px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+        .name-area { display: flex; align-items: center; gap: 8px; }
+        .name-box { font-weight: bold; font-size: 1rem; }
+        .btn-del { font-size: 0.7rem; color: #bbb; border: 1px solid #eee; background: white; padding: 2px 5px; border-radius: 3px; cursor: pointer; text-decoration: none; }
+        .btn-check { background: #555; color: white; border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
 
-        /* 2층: 횟수와 기록 (모바일 2열 배치) */
-        .mid-row { display: grid; grid-template-columns: 1fr 2.5fr; gap: 10px; padding: 10px; align-items: start; }
+        /* 2층: 횟수(3단)와 기록 */
+        .mid-row { display: grid; grid-template-columns: 80px 1fr; gap: 12px; padding: 12px; align-items: stretch; }
         
-        /* 횟수 스타일 (두 줄 배치) */
-        .count-box { text-align: center; font-size: 0.85rem; line-height: 1.3; }
-        .rem-count { font-weight: bold; font-size: 1.1rem; display: block; } /* 잔여횟수 강조 */
-        .total-count { color: #333; font-weight: bold; font-size: 0.9rem; display: block; border-top: 1px solid #eee; padding-top: 2px; } /* 총횟수 검정 */
-        .blue { color: #3498db; } .red { color: #e74c3c; } /* 잔여횟수 색상 */
+        /* 횟수 3단 박스 디자인 */
+        .count-board { border: 1.5px solid #ddd; border-radius: 6px; text-align: center; overflow: hidden; display: flex; flex-direction: column; }
+        .count-label { background: #eee; font-size: 0.75rem; font-weight: bold; padding: 4px 0; border-bottom: 1px solid #ddd; color: #444; }
+        .count-num { font-size: 1.2rem; font-weight: bold; padding: 8px 0; flex: 1; display: flex; align-items: center; justify-content: center; }
+        .count-num.top { border-bottom: 1px solid #ddd; }
+        .blue { color: #3498db; } .red { color: #e74c3c; } .black { color: #222; }
         
-        /* 기록 상자 (3개 보이게 높이 조정) */
-        .log-box { font-size: 0.75rem; color: #666; max-height: 75px; overflow-y: scroll; border-left: 1px solid #eee; padding-left: 5px; }
-        .log-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 1px 0; gap: 3px; }
-        .btn-undo { color: #e74c3c; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 0.7rem; padding: 0 2px; }
+        /* 기록 상자 */
+        .log-box { font-size: 0.8rem; color: #555; max-height: 95px; overflow-y: scroll; padding-left: 5px; }
+        .log-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 3px 0; align-items: center; }
+        .btn-undo { color: #e74c3c; cursor: pointer; font-weight: bold; border: 1px solid #f8d7da; background: #fff; font-size: 0.7rem; padding: 1px 4px; border-radius: 2px; }
 
         /* 3층: 메모행 */
-        .memo-row { display: flex; align-items: center; padding: 8px 10px; background: #fff; border-top: 1px solid #eee; gap: 5px; }
-        .memo-input { flex: 1; border: 1px solid #eee; border-radius: 4px; padding: 8px; font-size: 0.85rem; outline: none; height: 18px; }
-        .btn-save { background: #555; color: white; border: none; padding: 8px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .memo-row { display: flex; align-items: center; padding: 10px; background: #fff; border-top: 1px solid #eee; gap: 5px; }
+        .memo-input { flex: 1; border: 1px solid #eee; border-radius: 4px; padding: 10px; font-size: 0.85rem; outline: none; }
+        /* 저장 버튼 색상 흐릿하게 조정 */
+        .btn-save { background: #bdc3c7; color: white; border: none; padding: 10px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .btn-save:active { background: #95a5a6; }
         
-        .btn-del { font-size: 0.65rem; color: #bbb; border: none; background: none; cursor: pointer; text-decoration: underline; margin-top: 4px; display: block; text-align: left;}
+        /* 스크롤바 가시성 확보 */
+        .log-box::-webkit-scrollbar { width: 4px; }
+        .log-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -60,8 +64,7 @@
 </div>
 
 <script>
-    // 데이터 저장 키값 (pt-v4용 새 키값)
-    let users = JSON.parse(localStorage.getItem('ryu_pt_final_v4')) || [];
+    let users = JSON.parse(localStorage.getItem('ryu_pt_final_v5')) || [];
 
     function render() {
         const container = document.getElementById('userContainer');
@@ -72,34 +75,35 @@
             let logHtml = user.logs.map((log, lIdx) => `
                 <div class="log-item">
                     <span>${log}</span>
-                    <button class="btn-undo" onclick="undoSession(${idx}, ${lIdx})" title="삭제">X</button>
+                    <button class="btn-undo" onclick="undoSession(${idx}, ${lIdx})">X</button>
                 </div>
             `).reverse().join('');
 
             container.innerHTML += `
                 <div class="user-card">
                     <div class="header-row">
-                        <div class="name-box">
-                            ${user.name}<br>
+                        <div class="name-area">
+                            <span class="name-box">${user.name}</span>
                             <button class="btn-del" onclick="deleteUser(${idx})">삭제</button>
                         </div>
                         <button class="btn-check" onclick="checkSession(${idx})">수업완료</button>
                     </div>
                     <div class="mid-row">
-                        <div class="count-box">
-                            <span class="rem-count ${remainClass}">${user.remain}</span>
-                            <span class="total-count">${user.total}</span>
+                        <div class="count-board">
+                            <div class="count-label">횟수</div>
+                            <div class="count-num top ${remainClass}">${user.remain}</div>
+                            <div class="count-num black">${user.total}</div>
                         </div>
-                        <div class="log-box">${logHtml || '기록없음'}</div>
+                        <div class="log-box">${logHtml || '<span style="color:#ccc">기록없음</span>'}</div>
                     </div>
                     <div class="memo-row">
-                        <input type="text" class="memo-input" id="memo-${idx}" value="${user.memo || ''}" placeholder="메모를 입력하세요">
+                        <input type="text" class="memo-input" id="memo-${idx}" value="${user.memo || ''}" placeholder="메모 입력...">
                         <button class="btn-save" onclick="saveMemo(${idx})">저장</button>
                     </div>
                 </div>
             `;
         });
-        localStorage.setItem('ryu_pt_final_v4', JSON.stringify(users));
+        localStorage.setItem('ryu_pt_final_v5', JSON.stringify(users));
     }
 
     function addUser() {
@@ -133,7 +137,7 @@
     function saveMemo(idx) {
         users[idx].memo = document.getElementById(`memo-${idx}`).value;
         render();
-        alert("메모가 저장되었습니다.");
+        alert("저장되었습니다.");
     }
 
     function deleteUser(idx) {
