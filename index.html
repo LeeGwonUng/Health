@@ -5,50 +5,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>서울클럽 발란스 류센세</title>
     <style>
-        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f4f7f6; padding: 15px; display: flex; flex-direction: column; align-items: center; margin: 0; -webkit-text-size-adjust: none; }
-        .container { width: 100%; max-width: 480px; background: white; padding: 20px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); box-sizing: border-box; }
-        h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px; font-size: 1.4rem; font-weight: 800; letter-spacing: -1px; }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f4f7f6; padding: 10px; display: flex; flex-direction: column; align-items: center; margin: 0; -webkit-text-size-adjust: none; }
+        .container { width: 100%; max-width: 480px; background: white; padding: 15px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); box-sizing: border-box; }
+        h2 { text-align: center; color: #1a1a1a; margin-bottom: 15px; font-size: 1.3rem; font-weight: 800; letter-spacing: -1px; }
         
-        .input-group { display: flex; gap: 8px; margin-bottom: 25px; background: #fff; padding: 5px; border-radius: 12px; border: 2px solid #edf2f7; }
-        .input-group input { height: 44px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0 12px; font-size: 0.95rem; box-sizing: border-box; -webkit-appearance: none; outline: none; transition: border 0.2s; }
-        .input-group input:focus { border-color: #27ae60; }
+        .input-group { display: flex; gap: 5px; margin-bottom: 20px; background: #fff; padding: 5px; border-radius: 12px; border: 2px solid #edf2f7; }
+        .input-group input { height: 40px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0 10px; font-size: 0.9rem; box-sizing: border-box; -webkit-appearance: none; outline: none; }
         #userName { flex: 2; min-width: 0; }
-        #totalSessions { flex: 1; min-width: 0; }
-        .btn-add { flex: 1; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.95rem; height: 44px; box-shadow: 0 4px 6px rgba(39, 174, 96, 0.2); }
+        #totalSessions { flex: 1.2; min-width: 0; }
+        .btn-add { flex: 1; background: #27ae60; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 0.9rem; height: 40px; }
 
-        .user-card { border: 1.5px solid #e2e8f0; border-radius: 16px; margin-bottom: 20px; background: #fff; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .user-card { border: 1.5px solid #e2e8f0; border-radius: 16px; margin-bottom: 15px; background: #fff; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         
-        /* ✅ 이름 헤더 영역: 신뢰감을 주는 연한 민트 그레이 배경색 적용 */
-        .name-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: #e9f2ef; border-bottom: 1.5px solid #d1dbd8; }
-        .name-info { font-weight: 800; font-size: 1.05rem; color: #1e293b; }
-        .name-num { color: #64748b; margin-right: 8px; font-weight: 600; }
-        .btn-del { font-size: 0.75rem; color: #94a3b8; border: none; background: none; cursor: pointer; text-decoration: underline; }
+        .name-header { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #e9f2ef; border-bottom: 1.5px solid #d1dbd8; }
+        .name-info { font-weight: 800; font-size: 1rem; color: #1e293b; }
+        .name-num { color: #64748b; margin-right: 6px; font-weight: 600; }
+        .btn-del { font-size: 0.7rem; color: #94a3b8; border: none; background: none; cursor: pointer; text-decoration: underline; }
 
-        .middle-content { display: flex; border-bottom: 1.5px solid #e2e8f0; height: 95px; }
+        .middle-content { display: flex; border-bottom: 1.5px solid #e2e8f0; min-height: 90px; }
         
-        .count-area { width: 95px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1.5px solid #e2e8f0; background: #fff; }
-        .count-title { font-size: 0.75rem; color: #64748b; font-weight: 700; border-bottom: 1px solid #f1f5f9; text-align: center; padding: 6px 0; background: #fcfdfe; }
-        .count-val { flex: 1; display: flex; justify-content: center; align-items: center; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px; }
+        .count-area { width: 85px; flex-shrink: 0; display: flex; flex-direction: column; border-right: 1.5px solid #e2e8f0; background: #fff; }
+        .count-title { font-size: 0.7rem; color: #64748b; font-weight: 700; border-bottom: 1px solid #f1f5f9; text-align: center; padding: 5px 0; background: #fcfdfe; }
+        .count-val { flex: 1; display: flex; justify-content: center; align-items: center; font-size: 1.1rem; font-weight: 800; }
         .blue { color: #3182ce; } .red { color: #e53e3e; }
         .total-txt { color: #475569; }
 
+        /* ✅ 기록 글자 크기 미세 조정 */
         .log-area { flex: 1; min-width: 0; background: #fff; display: flex; flex-direction: column; }
-        .log-box { font-size: 0.85rem; color: #334155; height: 100%; overflow-y: scroll; padding: 5px 10px; }
-        .log-item { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #f1f5f9; }
+        .log-box { font-size: 0.8rem; color: #334155; height: 100%; overflow-y: auto; padding: 5px 8px; }
+        .log-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px solid #f1f5f9; }
         .log-item:last-child { border-bottom: none; }
-        .btn-undo { width: 20px; height: 20px; border: 1.5px solid #e2e8f0; color: #94a3b8; background: white; cursor: pointer; font-size: 0.65rem; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+        .btn-undo { width: 18px; height: 18px; border: 1.5px solid #e2e8f0; color: #94a3b8; background: white; cursor: pointer; font-size: 0.6rem; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
 
-        .btn-col { width: 85px; flex-shrink: 0; display: flex; border-left: 1.5px solid #e2e8f0; }
-        .btn-check { width: 100%; background: #27ae60; color: white; border: none; font-weight: 800; cursor: pointer; font-size: 0.95rem; line-height: 1.3; transition: opacity 0.2s; }
-        .btn-check:active { opacity: 0.8; }
+        /* ✅ 버튼 열 너비 고정 (수업완료 & 저장 일치) */
+        .btn-col { width: 80px; flex-shrink: 0; display: flex; border-left: 1.5px solid #e2e8f0; }
+        .btn-check { width: 100%; background: #27ae60; color: white; border: none; font-weight: 800; cursor: pointer; font-size: 0.85rem; line-height: 1.3; }
 
-        .memo-row { display: flex; height: 48px; background: #fff; }
-        .memo-input { flex: 1; border: none; padding: 0 15px; font-size: 0.9rem; outline: none; background: #fff; color: #1e293b; }
-        .btn-save { width: 85px; background: #64748b; color: white; border: none; border-left: 1.5px solid #e2e8f0; font-weight: 800; cursor: pointer; font-size: 0.95rem; flex-shrink: 0; transition: opacity 0.2s; }
-        .btn-save:active { opacity: 0.8; }
+        .memo-row { display: flex; height: 44px; background: #fff; }
+        .memo-input { flex: 1; border: none; padding: 0 10px; font-size: 0.85rem; outline: none; background: #fff; color: #1e293b; min-width: 0; }
+        .btn-save { width: 80px; background: #64748b; color: white; border: none; border-left: 1.5px solid #e2e8f0; font-weight: 800; cursor: pointer; font-size: 0.85rem; flex-shrink: 0; }
 
-        .log-box::-webkit-scrollbar { width: 6px !important; }
-        .log-box::-webkit-scrollbar-track { background: #f8fafc; }
+        .log-box::-webkit-scrollbar { width: 4px !important; }
         .log-box::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
@@ -56,18 +53,16 @@
 
 <div class="container">
     <h2>🧘‍♂️ 서울클럽 발란스 류센세</h2>
-    
     <div class="input-group">
         <input type="text" id="userName" placeholder="회원 성함" inputmode="text">
-        <input type="number" id="totalSessions" placeholder="총 횟수" inputmode="numeric">
+        <input type="number" id="totalSessions" placeholder="횟수" inputmode="numeric">
         <button class="btn-add" onclick="addUser()">등록</button>
     </div>
-
     <div id="userContainer"></div>
 </div>
 
 <script>
-    let users = JSON.parse(localStorage.getItem('ryu_pt_final_v10')) || [];
+    let users = JSON.parse(localStorage.getItem('ryu_pt_final_v11')) || [];
 
     function render() {
         const container = document.getElementById('userContainer');
@@ -97,20 +92,20 @@
                             </div>
                         </div>
                         <div class="log-area">
-                            <div class="log-box">${logHtml || '<div style="color:#cbd5e1;padding-top:25px;text-align:center;font-size:0.8rem;">기록이 없습니다.</div>'}</div>
+                            <div class="log-box">${logHtml || '<div style="color:#cbd5e1;padding-top:20px;text-align:center;font-size:0.75rem;">기록없음</div>'}</div>
                         </div>
                         <div class="btn-col">
                             <button class="btn-check" onclick="checkSession(${idx})">수업<br>완료</button>
                         </div>
                     </div>
                     <div class="memo-row">
-                        <input type="text" class="memo-input" id="memo-${idx}" value="${user.memo || ''}" placeholder="수업 메모를 입력하세요..." inputmode="text">
+                        <input type="text" class="memo-input" id="memo-${idx}" value="${user.memo || ''}" placeholder="메모 입력..." inputmode="text">
                         <button class="btn-save" onclick="saveMemo(${idx})">저장</button>
                     </div>
                 </div>
             `;
         });
-        localStorage.setItem('ryu_pt_final_v10', JSON.stringify(users));
+        localStorage.setItem('ryu_pt_final_v11', JSON.stringify(users));
     }
 
     function addUser() {
@@ -135,7 +130,7 @@
     }
 
     function undoSession(uIdx, lIdx) {
-        if(confirm("기록을 삭제하고 횟수를 복구하시겠습니까?")) {
+        if(confirm("기록을 삭제하시겠습니까?")) {
             users[uIdx].remain++;
             users[uIdx].logs.splice(lIdx, 1);
             render();
@@ -145,11 +140,11 @@
     function saveMemo(idx) {
         users[idx].memo = document.getElementById(`memo-${idx}`).value;
         render();
-        alert("메모가 저장되었습니다.");
+        alert("저장되었습니다.");
     }
 
     function deleteUser(idx) {
-        if(confirm("해당 회원을 삭제하시겠습니까?")) {
+        if(confirm("삭제하시겠습니까?")) {
             users.splice(idx, 1);
             render();
         }
