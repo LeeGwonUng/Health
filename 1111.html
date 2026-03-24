@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>서울클럽 발란스 류센세</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f0f2f5; padding: 10px; display: flex; flex-direction: column; align-items: center; margin: 0; }
+        .container { width: 100%; max-width: 500px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px; font-size: 1.4rem; }
+        
+        /* 입력 영역 */
+        .input-group { display: flex; gap: 5px; margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; width: 30%; }
+        .btn-add { background: #27ae60; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; }
+
+        /* 회원 카드 스타일 */
+        .user-card { border: 1px solid #eee; border-radius: 8px; margin-bottom: 15px; overflow: hidden; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        
+        /* 첫 번째 줄: 정보행 */
+        .info-row { display: grid; grid-template-columns: 1fr 1fr 2fr 1.2fr; align-items: center; padding: 10px; background: #fafafa; border-bottom: 1px solid #f0f0f0; gap: 5px; }
+        .name-box { font-weight: bold; font-size: 0.85rem; text-align: center; line-height: 1.2; }
+        
+        /* 횟수 스타일 설정 */
+        .count-box { font-size: 0.95rem; text-align: center; font-weight: bold; color: #333; } /* 총횟수 검정계열 고정 */
+        .blue { color: #3498db; } /* 3회 초과 파랑 */
+        .red { color: #e74c3c; }  /* 3회 이하 빨강 */
+        
+        .log-box { font-size: 0.75rem; color: #666; max-height: 60px; overflow-y: auto; border-left: 1px solid #eee; padding-left: 5px; }
+        .log-item { display: flex; justify-content: space-between; border-bottom: 1px dashed #eee; padding: 1px 0; }
+        .btn-undo { color: #e74c3c; cursor: pointer; font-weight: bold; border: none; background: none; font-size: 0.7rem; padding: 0 2px; }
+
+        /* 버튼 색상 통일 (#555 회색톤 또는 원하는 색상으로 조정 가능) */
+        .btn-check { background: #555; color: white; border: none; padding: 10px 5px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
+
+        /* 두 번째 줄: 메모행 */
+        .memo-row { display: flex; align-items: center; padding: 8px 10px; background: #fff; gap: 5px; }
+        .memo-input { flex: 1; border: 1px solid #eee; border-radius: 4px; padding: 8px; font-size: 0.85rem; outline: none; height: 18px; }
+        .btn-save { background: #555; color: white; border: none; padding: 8px 12px; border-radius: 4px; font-size: 0.8rem; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        
+        .btn-del { font-size: 0.65rem; color: #bbb; border: none; background: none; cursor: pointer; text-decoration: underline; margin-top: 4px; }
+        
+        /* 스크롤바 미세 조정 */
+        .log-box::-webkit-scrollbar { width: 2px; }
+        .log-box::-webkit-scrollbar-thumb { background: #ddd; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🧘‍♂️ 서울클럽 발란스 류센세</h2>
+
+    <div class="input-group">
+        <input type="text" id="userName" placeholder="이름">
+        <input type="number" id="totalSessions" placeholder="횟수">
+        <button class="btn-add" onclick="addUser()">등록</button>
+    </div>
+
+    <div id="userContainer"></div>
+</div>
+
+<script>
+    // 데이터 키값 유지 (기존 데이터 호환)
+    let users = JSON.parse(localStorage.getItem('ryu_pt_final_v4')) || [];
+
+    function render() {
+        const container = document.getElementById('userContainer');
+        container.innerHTML = '';
+
+        users.forEach((user, idx) => {
+            // 잔여 횟수에 따른 색상 클래스
+            const remainClass = user.remain <= 3 ? 'red' : 'blue';
+            
+            let logHtml = user.logs.map((log, lIdx) => `
+                <div class="log-item">
+                    <span>${log}</span>
+                    <button class="btn-undo" onclick="undoSession(${idx}, ${lIdx})" title="삭제">X</button>
+                </div>
+            `).reverse().join('');
+
+            container.innerHTML += `
+                <div class="user-card">
+                    <div class="info-row">
+                        <div class="name-box">
+                            ${user.name}<br>
+                            <button class="btn-del" onclick="deleteUser(${idx})">삭제</button>
+                        </div>
+                        <div class="count-box">
+                            <span class="${remainClass}">${user.remain}</span> / ${user.total}
+                        </div>
+                        <div class="log-box">${logHtml || '기록없음'}</div>
+                        <button class="btn-check" onclick="checkSession(${idx})">수업완료</button>
+                    </div>
+                    <div class="memo-row">
+                        <input type="text" class="memo-input" id="memo-${idx}" value="${user.memo || ''}" placeholder="메모를 입력하세요">
+                        <button class="btn-save" onclick="saveMemo(${idx})">저장</button>
+                    </div>
+                </div>
+            `;
+        });
+        localStorage.setItem('ryu_pt_final_v4', JSON.stringify(users));
+    }
+
+    function addUser() {
+        const name = document.getElementById('userName').value;
+        const total = parseInt(document.getElementById('totalSessions').value);
+        if(!name || isNaN(total)) return alert("정보를 입력해주세요.");
+        users.push({ name, total, remain: total, logs: [], memo: '' });
+        render();
+        document.getElementById('userName').value = '';
+        document.getElementById('totalSessions').value = '';
+    }
+
+    function checkSession(idx) {
+        if(users[idx].remain <= 0) return alert("남은 횟수가 없습니다.");
+        const now = new Date();
+        const weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+        // '분' 제외하고 '시'까지만 기록
+        const timeStr = `${now.getMonth()+1}-${now.getDate()}(${weekDays[now.getDay()]}) ${now.getHours()}시`;
+        users[idx].remain--;
+        users[idx].logs.push(timeStr);
+        render();
+    }
+
+    function undoSession(uIdx, lIdx) {
+        if(confirm("기록을 삭제하고 횟수를 복구하시겠습니까?")) {
+            users[uIdx].remain++;
+            users[uIdx].logs.splice(lIdx, 1);
+            render();
+        }
+    }
+
+    function saveMemo(idx) {
+        users[idx].memo = document.getElementById(`memo-${idx}`).value;
+        render();
+        alert("메모가 저장되었습니다.");
+    }
+
+    function deleteUser(idx) {
+        if(confirm("해당 회원을 명단에서 삭제하시겠습니까?")) {
+            users.splice(idx, 1);
+            render();
+        }
+    }
+
+    render();
+</script>
+
+</body>
+</html>
