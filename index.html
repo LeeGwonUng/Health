@@ -6,50 +6,51 @@
     <title>서울클럽 발란스 류센세</title>
     <style>
         body { font-family: 'Pretendard', sans-serif; background-color: #f0f2f5; padding: 10px; display: flex; flex-direction: column; align-items: center; margin: 0; -webkit-text-size-adjust: none; }
-        .container { width: 100%; max-width: 450px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
-        h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px; font-size: 1.3rem; margin-top: 5px; font-weight: 800; }
+        .container { width: 100%; max-width: 480px; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); box-sizing: border-box; }
+        h2 { text-align: center; color: #1a1a1a; margin-bottom: 20px; font-size: 1.3rem; font-weight: 800; }
         
-        .input-group { display: flex; gap: 5px; margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 8px; box-sizing: border-box; }
-        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; width: 30%; -webkit-appearance: none; }
-        .btn-add { background: #27ae60; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; font-size: 0.9rem; }
+        .input-group { display: flex; gap: 5px; margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; -webkit-appearance: none; }
+        .btn-add { background: #27ae60; color: white; border: none; padding: 0 15px; border-radius: 4px; cursor: pointer; font-weight: bold; white-space: nowrap; }
 
-        .user-card { border: 1px solid #eee; border-radius: 8px; margin-bottom: 15px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); overflow: hidden; display: flex; flex-direction: column; }
+        .user-card { border: 1px solid #eee; border-radius: 8px; margin-bottom: 15px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
         
-        /* 메인 데이터 영역 (이름, 횟수, 기록, 수업완료) */
-        .main-info { display: flex; border-bottom: 1px solid #eee; }
+        /* 1단: 이름 헤더 행 */
+        .name-header { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: #eee; border-bottom: 1px solid #ddd; }
+        .name-info { font-weight: 800; font-size: 1rem; color: #333; }
+        .name-num { color: #666; margin-right: 8px; font-size: 0.9rem; }
+        .btn-del { font-size: 0.75rem; color: #999; border: none; background: none; cursor: pointer; text-decoration: underline; }
+
+        /* 2단: 중앙 정보 영역 (횟수, 기록, 수업완료 버튼) */
+        .middle-content { display: flex; border-bottom: 1px solid #eee; }
         
-        /* 왼쪽: 이름과 횟수 */
-        .left-col { width: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 10px 5px; border-right: 1px solid #eee; background: #fafafa; flex-shrink: 0; }
-        .name-txt { font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; text-align: center; }
-        .count-box { display: flex; flex-direction: column; align-items: center; border-top: 1px solid #ddd; padding-top: 5px; width: 100%; }
-        .rem-count { font-weight: 800; font-size: 1.1rem; }
-        .total-count { color: #333; font-weight: 700; font-size: 0.8rem; margin-top: 2px; }
+        /* 횟수 박스 */
+        .count-area { width: 90px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid #eee; padding: 8px 0; }
+        .count-title { font-size: 0.75rem; color: #666; font-weight: bold; margin-bottom: 5px; }
+        .count-val { font-size: 1rem; font-weight: 800; }
         .blue { color: #3498db; } .red { color: #e74c3c; }
+        .total-txt { color: #333; }
 
-        /* 중간: 기록 영역 */
-        .log-col { flex: 1; min-width: 0; padding: 5px 8px; background: #fff; overflow: hidden; display: flex; flex-direction: column; }
-        .log-box { font-size: 0.75rem; color: #555; max-height: 85px; overflow-y: scroll; display: flex; flex-direction: column; }
-        .log-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px dashed #f0f0f0; gap: 5px; }
+        /* 기록 박스 */
+        .log-area { flex: 1; padding: 6px 10px; min-width: 0; }
+        .log-box { font-size: 0.8rem; color: #555; max-height: 80px; overflow-y: scroll; display: flex; flex-direction: column; }
+        .log-item { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; border-bottom: 1px dashed #f0f0f0; gap: 6px; }
         .log-item:last-child { border-bottom: none; }
-        .log-date { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .btn-undo { width: 18px; height: 18px; border: 1px solid #ddd; color: #ccc; background: white; cursor: pointer; font-size: 0.65rem; font-weight: bold; border-radius: 3px; flex-shrink: 0; }
 
-        /* 오른쪽: 버튼 기둥 (수업완료 & 저장 버튼을 같은 열에 고정) */
-        .btn-col { width: 75px; display: flex; flex-direction: column; flex-shrink: 0; border-left: 1px solid #eee; }
-        .btn-check { flex: 1; background: #555; color: white; border: none; font-weight: bold; cursor: pointer; font-size: 0.85rem; padding: 10px 0; -webkit-appearance: none; }
-        
-        /* 하단: 메모 및 저장 */
-        .memo-row { display: flex; background: #fff; height: 45px; border-top: 1px solid #eee; }
-        .memo-input { flex: 1; border: none; padding: 0 10px; font-size: 0.85rem; outline: none; -webkit-appearance: none; }
-        .btn-save { width: 75px; background: #555; color: white; border: none; font-weight: bold; cursor: pointer; font-size: 0.85rem; flex-shrink: 0; border-left: 1px solid #eee; -webkit-appearance: none; }
+        /* 버튼 기둥 (수업완료 & 저장 버튼 너비 고정) */
+        .fixed-btn-col { width: 80px; flex-shrink: 0; display: flex; }
+        .btn-check { width: 100%; background: #555; color: white; border: none; font-weight: bold; cursor: pointer; font-size: 0.85rem; border-left: 1px solid #eee; padding: 15px 0; }
 
-        /* X 버튼 및 삭제 버튼 */
-        .btn-undo { width: 18px; height: 18px; border: 1px solid #e74c3c; color: #e74c3c; background: white; cursor: pointer; font-size: 0.7rem; font-weight: bold; border-radius: 3px; flex-shrink: 0; }
-        .btn-del { font-size: 0.65rem; color: #bbb; border: none; background: none; cursor: pointer; text-decoration: underline; margin-top: 2px; }
+        /* 3단: 하단 메모행 */
+        .memo-row { display: flex; background: #fff; height: 42px; }
+        .memo-input { flex: 1; border: none; padding: 0 12px; font-size: 0.85rem; outline: none; -webkit-appearance: none; }
+        .btn-save { width: 80px; background: #555; color: white; border: none; font-weight: bold; cursor: pointer; font-size: 0.85rem; border-left: 1px solid #eee; flex-shrink: 0; }
 
-        /* 스크롤바 굵게 */
-        .log-box::-webkit-scrollbar { width: 10px !important; }
+        /* 스크롤바 */
+        .log-box::-webkit-scrollbar { width: 8px !important; }
         .log-box::-webkit-scrollbar-track { background: #f1f1f1; }
-        .log-box::-webkit-scrollbar-thumb { background: #bbb; border-radius: 5px; border: 2px solid #f1f1f1; }
+        .log-box::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -65,35 +66,38 @@
 </div>
 
 <script>
-    let users = JSON.parse(localStorage.getItem('ryu_pt_v5')) || [];
+    let users = JSON.parse(localStorage.getItem('ryu_pt_v6')) || [];
 
     function render() {
         const container = document.getElementById('userContainer');
         container.innerHTML = '';
         users.forEach((user, idx) => {
             const remainClass = user.remain <= 3 ? 'red' : 'blue';
+            const userNum = String(idx + 1).padStart(2, '0');
             let logHtml = user.logs.map((log, lIdx) => `
                 <div class="log-item">
-                    <span class="log-date">${log}</span>
+                    <span>${log}</span>
                     <button class="btn-undo" onclick="undoSession(${idx}, ${lIdx})">X</button>
                 </div>
             `).reverse().join('');
 
             container.innerHTML += `
                 <div class="user-card">
-                    <div class="main-info">
-                        <div class="left-col">
-                            <div class="name-txt">${user.name}</div>
-                            <div class="count-box">
-                                <span class="rem-count ${remainClass}">${user.remain}</span>
-                                <span class="total-count">/ ${user.total}</span>
+                    <div class="name-header">
+                        <div class="name-info"><span class="name-num">${userNum}</span>${user.name}</div>
+                        <button class="btn-del" onclick="deleteUser(${idx})">[삭제]</button>
+                    </div>
+                    <div class="middle-content">
+                        <div class="count-area">
+                            <span class="count-title">[ 잔여 / 총 ]</span>
+                            <div class="count-val">
+                                <span class="${remainClass}">${user.remain}</span><span class="total-txt"> / ${user.total}</span>
                             </div>
-                            <button class="btn-del" onclick="deleteUser(${idx})">삭제</button>
                         </div>
-                        <div class="log-col">
-                            <div class="log-box">${logHtml || '<div style="color:#999;padding-top:10px;text-align:center;">기록없음</div>'}</div>
+                        <div class="log-area">
+                            <div class="log-box">${logHtml || '<div style="color:#bbb;padding-top:15px;text-align:center;">기록없음</div>'}</div>
                         </div>
-                        <div class="btn-col">
+                        <div class="fixed-btn-col">
                             <button class="btn-check" onclick="checkSession(${idx})">수업<br>완료</button>
                         </div>
                     </div>
@@ -104,7 +108,7 @@
                 </div>
             `;
         });
-        localStorage.setItem('ryu_pt_v5', JSON.stringify(users));
+        localStorage.setItem('ryu_pt_v6', JSON.stringify(users));
     }
 
     function addUser() {
